@@ -1,0 +1,110 @@
+        /* ベースコンテナ */
+        .ad-box {
+            text-align: center;
+            color: white;
+            font-weight: 700;
+            max-width: 500px;
+            min-height: 95vh;
+            padding: 10px;
+            margin: 0 auto;
+        }
+
+        /* グラデーションプリセット */
+        .gradient-sunset { background: linear-gradient(135deg, #ff6b6b, #ff8e8e); }
+        .gradient-ocean { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .gradient-forest { background: linear-gradient(135deg, #38f9d7, #43e97b); }
+
+        /* 文字サイズ */
+        .text-xxl { 
+            font-size: 5rem; 
+        }
+        .text-xl { 
+            font-size: 2.5rem; 
+        }
+        .text-lg { 
+            font-size: 2rem; 
+        }
+        .text-md { 
+            font-size: 1.5rem; 
+        }
+        .text-sm { 
+            font-size: 1.25rem; 
+        }
+
+        /* スマホ対応の文字サイズ */
+        @media (max-width: 768px) {
+            .text-xxl { 
+                font-size: 3rem; 
+            }
+            .text-xl { 
+                font-size: 2rem; 
+            }
+            .text-lg { 
+                font-size: 1.5rem; 
+            }
+            .text-md { 
+                font-size: 1.25rem; 
+            }
+            .text-sm { 
+                font-size: 1rem; 
+            }
+        }
+
+        /* 横線スタイル */
+        .divider {
+            width: 100%;
+            max-width: 500px;
+            height: 2px;
+            margin: 1.5rem 0;
+        }
+        .divider-white { background: rgba(255,255,255,0.5); }
+        .divider-black { background: rgba(0,0,0,0.2); }
+
+        /* ボタン */
+        .btn {
+            border-radius: 50px;
+            cursor: pointer;
+            color: aliceblue;
+            font-size: 2rem;
+            font-weight: 700;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border: 3px solid #fff;
+            transition: all 0.3s ease;
+            margin: 0 auto;
+            margin-top: 50px;
+            display: block;
+            max-width: 75%;
+        }
+
+        @media (max-width: 768px) {
+            .btn {
+                font-size: 1.5rem;
+            }
+        }
+
+        .btn-glass {
+            background: rgba(255,255,255,0.2);
+            text-decoration: none;
+        }
+        .btn-glass:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        .ad-box .box{
+            width: 100%;
+            color:rgb(65, 185, 225);
+            background-color: aliceblue;
+        }
+        .ad-box p{
+            max-width: 500px;
+        }
+        .m_center{
+            margin: auto;
+        }
+        h2{
+            border-top: 3px solid rgba(255,255,255,0.5);
+            width: 100%;
+            margin: 0px;
+            padding: 10px;
+        }
