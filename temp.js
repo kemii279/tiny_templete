@@ -30,49 +30,50 @@ targetElements.forEach(targetElement => {
   const templateClone = matchedTemplate.cloneNode(true);
 
   // マッピング対象の属性を処理
-  const mappingKeys = Array.from(templateClone.querySelectorAll('*'))
-    .filter(el => el.className)
-    .flatMap(el => el.className.split(/\s+/)); // 複数クラス対応
+  // マッピング対象の属性を処理
+const mappingKeys = Array.from(templateClone.querySelectorAll('*'))
+.filter(el => el.className)
+.flatMap(el => el.className.split(/\s+/)); // 複数クラス対応
 
-  // 修正後のマッピング処理部分
-  if (templateInfo.hasChildTags) {
-    mappingKeys.forEach(key => {
-      const sourceEl = targetElement.querySelector(`.${key}`);
-      if (!sourceEl) return;
+// 子要素がある場合の処理
+if (templateInfo.hasChildTags) {
+mappingKeys.forEach(key => {
+  // 対象要素自身のクラスもチェックするよう修正
+  const sourceEl = targetElement.classList.contains(key) 
+    ? targetElement 
+    : targetElement.querySelector(`.${key}`);
+  if (!sourceEl) return;
 
-      // テンプレート内の該当クラス要素をすべて取得
-      const templateElements = templateClone.querySelectorAll(`.${key}`);
-      
-      // すべての一致する要素に内容をコピー
-      templateElements.forEach(templateEl => {
-        templateEl.innerHTML = sourceEl.innerHTML;
-        // href属性の処理を追加
-        if (templateEl.hasAttribute('href')) {
-          const sourceHref = sourceEl.getAttribute('href');
-          if (sourceHref) {
-            templateEl.setAttribute('href', sourceHref);
-          }
-        }
-        if (templateEl.hasAttribute('src')) {
-          const sourceHref = sourceEl.getAttribute('src');
-          if (sourceHref) {
-            templateEl.setAttribute('src', sourceHref);
-          }
-        }
-      });
-    });
-  } else {
-    // タグがない場合は要素全体のHTMLを使用
-    templateClone.innerHTML = targetElement.innerHTML;
+  const templateElements = templateClone.querySelectorAll(`.${key}`);
     
-    // タグがない場合もhref属性を処理
-    if (templateClone.hasAttribute('href') && targetElement.hasAttribute('href')) {
-      templateClone.setAttribute('href', targetElement.getAttribute('href'));
+  templateElements.forEach(templateEl => {
+    templateEl.innerHTML = sourceEl.innerHTML;
+    
+    // href属性を常にコピー
+    const sourceHref = sourceEl.getAttribute('href');
+    if (sourceHref !== null) {
+      templateEl.setAttribute('href', sourceHref);
     }
-    if (templateClone.hasAttribute('src') && targetElement.hasAttribute('src')) {
-      templateClone.setAttribute('src', targetElement.getAttribute('src'));
+    
+    // src属性を常にコピー
+    const sourceSrc = sourceEl.getAttribute('src');
+    if (sourceSrc !== null) {
+      templateEl.setAttribute('src', sourceSrc);
     }
-  }
+  });
+});
+}
+
+// 対象要素自体のhref/srcをテンプレートのルート要素に常にコピー
+const sourceHref = targetElement.getAttribute('href');
+if (sourceHref !== null) {
+templateClone.setAttribute('href', sourceHref);
+}
+
+const sourceSrc = targetElement.getAttribute('src');
+if (sourceSrc !== null) {
+templateClone.setAttribute('src', sourceSrc);
+}
   // コンテンツ挿入処理
   // data-insert="content"属性を持つ要素をテンプレートから検索
   const contentContainer = templateClone.querySelector('[data-insert="content"]');
