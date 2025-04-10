@@ -33,8 +33,10 @@ targetElements.forEach(targetElement => {
   // 子要素処理
   if (matchedTemplate.children.length > 0) {
     const mappingKeys = Array.from(templateClone.querySelectorAll('*'))
-      .filter(el => el.className)
-      .flatMap(el => el.className.split(/\s+/));
+  .flatMap(el => {
+    const className = el.getAttribute('class');
+    return className ? className.split(/\s+/) : [];
+  });
 
     mappingKeys.forEach(key => {
       const sourceEl = targetElement.classList.contains(key) 
